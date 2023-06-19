@@ -16,8 +16,6 @@ public class ArticleService {
 	@Autowired
 	ArticleService(ArticleDao articleDao){
 		this.articleDao = articleDao;
-		
-		articleDao.makeTestData();
 	}
 	
 	// 서비스 메서드
