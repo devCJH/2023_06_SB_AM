@@ -3,6 +3,18 @@
 
 <mapper namespace="com.example.demo.dao.ArticleDao">
 	
+	<insert id="writeArticle">
+		INSERT INTO article
+			SET regDate = NOW()
+				, updateDate = NOW()
+				, title = #{title}
+				, `body` = #{body}
+	</insert>
+	
+	<select id="getLastInsertId" resultType="int">
+		SELECT LAST_INSERT_ID()
+	</select>
+	
 	<select id="getArticleById" resultType="Article">
 		SELECT *
 			FROM article

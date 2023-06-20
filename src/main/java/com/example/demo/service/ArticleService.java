@@ -19,8 +19,8 @@ public class ArticleService {
 	}
 	
 	// 서비스 메서드
-	public Article writeArticle(String title, String body) {
-		return articleDao.writeArticle(title, body);
+	public void writeArticle(String title, String body) {
+		articleDao.writeArticle(title, body);
 	}
 	
 	public Article getArticleById(int id) {
@@ -37,6 +37,10 @@ public class ArticleService {
 
 	public List<Article> getArticles() {
 		return articleDao.getArticles();
+	}
+
+	public int getLastInsertId() {
+		return articleDao.getLastInsertId();
 	}
 	
 }
