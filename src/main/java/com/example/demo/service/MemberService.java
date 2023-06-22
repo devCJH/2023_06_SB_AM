@@ -18,7 +18,7 @@ public class MemberService {
 		this.memberDao = memberDao;
 	}
 
-	public ResultData doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
+	public ResultData<Member> doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
 		
 		Member existsMember = getMemberByLoginId(loginId);
 		
