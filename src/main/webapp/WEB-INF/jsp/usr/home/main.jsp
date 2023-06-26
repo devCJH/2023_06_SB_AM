@@ -7,6 +7,7 @@
 <title>MAIN PAGE</title>
 </head>
 <body>
+
 	<div>
 		<a href="/">로고</a>
 		<ul>
