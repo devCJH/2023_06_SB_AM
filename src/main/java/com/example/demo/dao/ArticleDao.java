@@ -20,4 +20,6 @@ public interface ArticleDao {
 	public List<Article> getArticles();
 
 	public int getLastInsertId();
+
+	public Article getForPrintArticle(int id);
 }
