@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.ArticleDao;
-import com.example.demo.util.Util;
 import com.example.demo.vo.Article;
-import com.example.demo.vo.ResultData;
 
 @Service
 public class ArticleService {

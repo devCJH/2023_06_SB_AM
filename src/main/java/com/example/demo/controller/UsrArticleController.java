@@ -3,7 +3,6 @@ package com.example.demo.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +31,7 @@ public class UsrArticleController {
 	@ResponseBody
 	public ResultData<Article> doAdd(HttpServletRequest req, String title, String body) {
 
-		Rq rq = new Rq(req);
+		Rq rq = (Rq) req.getAttribute("Rq");
 		
 		if (rq.getLoginedMemberId() == 0) {
 			return ResultData.from("F-A", "로그인 후 이용해주세요");
