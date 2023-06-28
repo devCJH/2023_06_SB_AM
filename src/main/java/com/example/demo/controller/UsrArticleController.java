@@ -78,26 +78,25 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public ResultData<Article> doModify(HttpSession session, int id, String title, String body) {
+	public String doModify(HttpSession session, int id, String title, String body) {
 
 		if (session.getAttribute("loginedMemberId") == null) {
-			return ResultData.from("F-A", "로그인 후 이용해주세요");
+			return Util.jsHistoryBack("로그인 후 이용해주세요");
 		}
 
-		Article foundArticle = articleService.getArticleById(id);
+		Article article = articleService.getArticleById(id);
 
-		if (foundArticle == null) {
-			return ResultData.from("F-1", Util.f("%d번 게시글은 존재하지 않습니다", id));
+		if (article == null) {
+			return Util.jsHistoryBack(Util.f("%d번 게시글은 존재하지 않습니다", id));
 		}
 
-		ResultData actorCanModifyRd = articleService.actorCanModify((int) session.getAttribute("loginedMemberId"),
-				foundArticle.getMemberId());
-
-		if (actorCanModifyRd.isFail()) {
-			return actorCanModifyRd;
+		if ((int) session.getAttribute("loginedMemberId") != article.getMemberId()) {
+			return Util.jsHistoryBack("해당 게시글에 대한 권한이 없습니다");
 		}
-
-		return articleService.modifyArticle(id, title, body);
+		
+		articleService.modifyArticle(id, title, body);
+		
+		return Util.jsReplace(Util.f("%d번 게시글을 수정했습니다", id), Util.f("detail?id=%d", id));
 	}
 
 	@RequestMapping("/usr/article/doDelete")
@@ -108,13 +107,13 @@ public class UsrArticleController {
 			return Util.jsHistoryBack("로그인 후 이용해주세요");
 		}
 		
-		Article foundArticle = articleService.getArticleById(id);
+		Article article = articleService.getArticleById(id);
 
-		if (foundArticle == null) {
+		if (article == null) {
 			return Util.jsHistoryBack(Util.f("%d번 게시글은 존재하지 않습니다", id));
 		}
 
-		if ((int) session.getAttribute("loginedMemberId") != foundArticle.getMemberId()) {
+		if ((int) session.getAttribute("loginedMemberId") != article.getMemberId()) {
 			return Util.jsHistoryBack("해당 게시글에 대한 권한이 없습니다");
 		}
 
