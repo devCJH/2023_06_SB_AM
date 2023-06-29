@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +23,12 @@
 		<ul class="flex">
 			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/">HOME</a></li>
 			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/article/list">LIST</a></li>
-			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/login">LOGIN</a></li>
+			<c:if test="${rq.getLoginedMemberId() == 0}">
+				<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/login">LOGIN</a></li>
+			</c:if>
+			<c:if test="${rq.getLoginedMemberId() != 0}">
+				<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/doLogout">LOGOUT</a></li>
+			</c:if>
 		</ul>
 	</div>
 	
