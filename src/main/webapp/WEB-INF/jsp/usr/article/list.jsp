@@ -8,7 +8,7 @@
 	<section class="mt-8">
 		<div class="container mx-auto">
 			<div class="table-box-type-1">
-				<table>
+				<table class="table">
 					<thead>
 						<tr>
 							<th>번호</th>
@@ -19,7 +19,7 @@
 					</thead>
 					<tbody>
 						<c:forEach var="article" items="${articles }">
-							<tr>
+							<tr class="hover">
 								<td>${article.id }</td>
 								<td>${article.regDate.substring(2, 16) }</td>
 								<td><a class="hover:underline" href="detail?id=${article.id }">${article.title }</a></td>

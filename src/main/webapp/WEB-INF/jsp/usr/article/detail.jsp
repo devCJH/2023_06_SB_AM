@@ -8,14 +8,14 @@
 	<section class="mt-8">
 		<div class="container mx-auto">
 			<div class="table-box-type-1">
-				<table>
+				<table class="table">
 					<colgroup>
 						<col width="200" />
 					</colgroup>
 					<tbody>
 						<tr>
 							<th>번호</th>
-							<td>${article.id }</td>
+							<td><span class="badge badge-neutral">${article.id }</span></td>
 						</tr>
 						<tr>
 							<th>작성일</th>
@@ -40,12 +40,12 @@
 					</tbody>
 				</table>
 			</div>
-			<div>
-				<button class="btn-text-link" onclick="history.back();">뒤로가기</button>
+			<div class="mt-2">
+				<button class="btn btn-accent btn-sm" onclick="history.back();">뒤로가기</button>
 				
-				<c:if test="${article.memberId == loginedMemberId }">
-					<a class="btn-text-link" href="modify?id=${article.id}">수정</a>
-					<a class="btn-text-link" href="doDelete?id=${article.id}" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a>
+				<c:if test="${article.memberId == rq.getLoginedMemberId() }">
+					<a class="btn btn-accent btn-sm" href="modify?id=${article.id}">수정</a>
+					<a class="btn btn-accent btn-sm" href="doDelete?id=${article.id}" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a>
 				</c:if>
 			</div>
 		</div>

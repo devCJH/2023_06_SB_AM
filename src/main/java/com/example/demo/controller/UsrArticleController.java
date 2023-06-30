@@ -66,7 +66,6 @@ public class UsrArticleController {
 		Article article = articleService.getForPrintArticle(id);
 
 		model.addAttribute("article", article);
-		model.addAttribute("loginedMemberId", rq.getLoginedMemberId());
 		
 		return "usr/article/detail";
 	}
