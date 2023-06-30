@@ -70,6 +70,26 @@ public class UsrArticleController {
 		
 		return "usr/article/detail";
 	}
+	
+	@RequestMapping("/usr/article/modify")
+	public String showModify(HttpServletRequest req, Model model, int id) {
+		
+		Rq rq = (Rq) req.getAttribute("rq");
+		
+		Article article = articleService.getForPrintArticle(id);
+		
+		if (article == null) {
+			return rq.jsReturnOnView(Util.f("%d번 게시글은 존재하지 않습니다", id));
+		}
+
+		if (rq.getLoginedMemberId() != article.getMemberId()) {
+			return rq.jsReturnOnView("해당 게시글에 대한 권한이 없습니다");
+		}
+		
+		model.addAttribute("article", article);
+		
+		return "usr/article/modify";
+	}
 
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
