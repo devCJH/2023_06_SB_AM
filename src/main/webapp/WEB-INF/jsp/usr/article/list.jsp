@@ -7,6 +7,9 @@
 
 	<section class="mt-8">
 		<div class="container mx-auto">
+			<div class="mb-2">
+				<span>총 : ${articlesCnt }개</span>
+			</div>
 			<div class="table-box-type-1">
 				<table class="table">
 					<thead>
