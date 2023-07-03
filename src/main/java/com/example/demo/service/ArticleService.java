@@ -19,8 +19,8 @@ public class ArticleService {
 	}
 	
 	// 서비스 메서드
-	public void writeArticle(int memberId, String title, String body) {
-		articleDao.writeArticle(memberId, title, body);
+	public void writeArticle(int memberId, int boardId, String title, String body) {
+		articleDao.writeArticle(memberId, boardId, title, body);
 	}
 	
 	public Article getArticleById(int id) {

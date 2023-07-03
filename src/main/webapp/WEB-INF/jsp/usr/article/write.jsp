@@ -15,6 +15,20 @@
 						</colgroup>
 						<tbody>
 							<tr>
+								<th>게시판</th>
+								<td>
+									<label>
+										<input type="radio" name="boardId" value="1"/>
+										&nbsp;공지사항
+									</label>
+									&nbsp;&nbsp;&nbsp;
+									<label>
+										<input type="radio" name="boardId" value="2" checked/>
+										&nbsp;자유
+									</label>
+								</td>
+							</tr>
+							<tr>
 								<th>제목</th>
 								<td><input class="input input-bordered input-accent w-full" type="text" name="title" placeholder="제목을 입력해주세요" /></td>
 							</tr>
