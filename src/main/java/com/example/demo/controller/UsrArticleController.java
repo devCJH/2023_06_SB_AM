@@ -11,19 +11,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.ArticleService;
+import com.example.demo.service.BoardService;
 import com.example.demo.util.Util;
 import com.example.demo.vo.Article;
-import com.example.demo.vo.ResultData;
+import com.example.demo.vo.Board;
 import com.example.demo.vo.Rq;
 
 @Controller
 public class UsrArticleController {
 
 	private ArticleService articleService;
+	private BoardService boardService;
 
 	@Autowired
-	public UsrArticleController(ArticleService articleService) {
+	public UsrArticleController(ArticleService articleService, BoardService boardService) {
 		this.articleService = articleService;
+		this.boardService = boardService;
 	}
 
 	@RequestMapping("/usr/article/write")
@@ -53,20 +56,21 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/list")
-	public String showList(Model model) {
+	public String showList(Model model, int boardId) {
 
-		List<Article> articles = articleService.getArticles();
+		Board board = boardService.getBoardById(boardId);
+		
+		List<Article> articles = articleService.getArticles(boardId);
 
 		model.addAttribute("articles", articles);
+		model.addAttribute("board", board);
 		
 		return "usr/article/list";
 	}
 
 	@RequestMapping("/usr/article/detail")
-	public String showDetail(HttpServletRequest req, Model model, int id) {
+	public String showDetail(Model model, int id) {
 
-		Rq rq = (Rq) req.getAttribute("rq");
-		
 		Article article = articleService.getForPrintArticle(id);
 
 		model.addAttribute("article", article);

@@ -35,8 +35,8 @@ public class ArticleService {
 		articleDao.deleteArticle(id);
 	}
 
-	public List<Article> getArticles() {
-		return articleDao.getArticles();
+	public List<Article> getArticles(int boardId) {
+		return articleDao.getArticles(boardId);
 	}
 
 	public int getLastInsertId() {
