@@ -38,6 +38,34 @@
 					<a class="btn btn-accent btn-sm" href="write">WRITE</a>
 				</div>
 			</c:if>
+			
+			<div class="mt-2 flex justify-center">
+				<div class="join">
+					<c:set var="pageMenuLen" value="5" />
+					<c:set var="startPage" value="${page - pageMenuLen >= 1 ? page - pageMenuLen : 1 }" />
+					<c:set var="endPage" value="${page + pageMenuLen <= pagesCnt ? page + pageMenuLen : pagesCnt }" />
+					
+					<c:if test="${page == 1 }">
+						<a class="join-item btn btn-disabled">«</a>
+						<a class="join-item btn btn-disabled">&lt;</a>
+					</c:if>
+					<c:if test="${page > 1 }">
+						<a class="join-item btn" href="?boardId=${board.id }&page=1">«</a>
+						<a class="join-item btn" href="?boardId=${board.id }&page=${page - 1 }">&lt;</a>
+					</c:if>
+					<c:forEach begin="${startPage }" end="${endPage }" var="i">
+						<a class="join-item btn ${page == i ? 'btn-active' : '' }" href="?boardId=${board.id }&page=${i }">${i }</a>
+					</c:forEach>
+					<c:if test="${page < pagesCnt }">
+						<a class="join-item btn" href="?boardId=${board.id }&page=${page + 1 }">&gt;</a>
+						<a class="join-item btn" href="?boardId=${board.id }&page=${pagesCnt }">»</a>
+					</c:if>
+					<c:if test="${page == pagesCnt }">
+						<a class="join-item btn btn-disabled">&gt;</a>
+						<a class="join-item btn btn-disabled">»</a>
+					</c:if>
+				</div>
+			</div>
 		</div>
 	</section>
 	
