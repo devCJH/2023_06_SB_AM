@@ -24,4 +24,6 @@ public interface ArticleDao {
 	public Article getForPrintArticle(int id);
 
 	public int getArticlesCnt(int boardId, String searchKeyword, String searchKeywordType);
+
+	public int increaseHitCnt(int id);
 }

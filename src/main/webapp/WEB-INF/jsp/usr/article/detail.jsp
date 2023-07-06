@@ -26,6 +26,10 @@
 							<td>${article.updateDate }</td>
 						</tr>
 						<tr>
+							<th>조회수</th>
+							<td>${article.hitCnt }</td>
+						</tr>
+						<tr>
 							<th>작성자</th>
 							<td>${article.writerName }</td>
 						</tr>

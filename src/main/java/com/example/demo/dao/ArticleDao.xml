@@ -23,6 +23,12 @@
 			WHERE id = #{id}
 	</select>
 	
+	<update id="increaseHitCnt">
+		UPDATE article
+			SET hitCnt = hitCnt + 1
+			WHERE id = #{id}
+	</update>
+	
 	<select id="getForPrintArticle" resultType="Article">
 		SELECT A.*, M.nickname AS `writerName`
 			FROM article AS A
