@@ -12,7 +12,7 @@ CREATE TABLE article(
 
 ALTER TABLE article ADD COLUMN memberId INT UNSIGNED NOT NULL AFTER updateDate;
 ALTER TABLE article ADD COLUMN boardId INT UNSIGNED NOT NULL AFTER memberId;
-ALTER TABLE article ADD COLUMN hitCnt INT UNSIGNED NOT NULL DEFAULT 0;
+alter table article add column hitCnt int unsigned not null default 0;
 
 CREATE TABLE `member`(
     id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -37,6 +37,16 @@ CREATE TABLE board(
     `name` VARCHAR(20) NOT NULL UNIQUE COMMENT '게시판 이름',
     delStatus TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제여부 (삭제 전 = 0, 삭제 후 = 1)',
     delDate DATETIME COMMENT '삭제 날짜'
+);
+
+CREATE TABLE reactionPoint (
+    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    memberId int unsigned not null,
+    relTypeCode varchar(20) not null comment '관련 데이터 타입 코드',
+    relId int unsigned not null comment '관련 데이터 번호',
+    `point` int not null default 0
 );
 
 INSERT INTO article
@@ -84,6 +94,16 @@ nickname = 'test',
 cellphoneNum = '01011112222',
 email = 'test@gmail.com';
 
+INSERT INTO `member`
+SET regDate = NOW(),
+updateDate = NOW(),
+loginId = 'test1',
+loginPw = 'test1',
+`name` = 'test1',
+nickname = 'test1',
+cellphoneNum = '01033332222',
+email = 'test1@gmail.com';
+
 INSERT INTO board
 SET regDate = NOW(),
 updateDate = NOW(),
@@ -96,9 +116,55 @@ updateDate = NOW(),
 `code` = 'free',
 `name` = '자유';
 
-SELECT * FROM article;
+# 2번 회원이 1번 글에 좋아요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+relTypeCode = 'article',
+relId = 1,
+`point` = 1;
+
+# 2번 회원이 2번 글에 싫어요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+relTypeCode = 'article',
+relId = 2,
+`point` = -1;
+
+# 2번 회원이 3번 글에 싫어요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+relTypeCode = 'article',
+relId = 3,
+`point` = -1;
+
+# 3번 회원이 2번 글에 좋아요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 3,
+relTypeCode = 'article',
+relId = 2,
+`point` = 1;
+
+# 3번 회원이 3번 글에 좋아요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 3,
+relTypeCode = 'article',
+relId = 3,
+`point` = 1;
+
+SELECT * FROM article order by id desc;
 SELECT * FROM `member`;
 SELECT * FROM board;
+select * from reactionPoint;
 
 SELECT LAST_INSERT_ID();
 
