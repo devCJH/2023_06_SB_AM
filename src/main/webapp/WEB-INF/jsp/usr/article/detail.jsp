@@ -7,12 +7,20 @@
 
 <script>
 	function ArticleDetail_increaseHitCnt() {
+		
+		const localStorageKey = 'article_[' + ${article.id} + ']_alreadyView';
+		
+		if (localStorage.getItem(localStorageKey)) {
+			return;
+		}
+		
+		localStorage.setItem(localStorageKey, true);
+		
 		$.get('doIncreaseHitCnt', {
 			id : ${article.id}
 		}, function(data){
 			$('#articleDetail_increaseHitCnt').empty().html(data.data1);
 		}, 'json')
-		
 	}
 	
 	$(function(){
@@ -22,7 +30,6 @@
 		// 테스트코드
 		setTimeout(ArticleDetail_increaseHitCnt, 2000);
 	})
-	
 </script>
 
 	<section class="mt-8">
