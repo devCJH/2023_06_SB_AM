@@ -2,6 +2,10 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +18,6 @@ import com.example.demo.service.BoardService;
 import com.example.demo.util.Util;
 import com.example.demo.vo.Article;
 import com.example.demo.vo.Board;
-import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
 
 @Controller
@@ -92,8 +95,35 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/detail")
-	public String showDetail(Model model, int id) {
+	public String showDetail(HttpServletRequest req, HttpServletResponse resp, Model model, int id) {
 
+		Cookie oldCookie = null;
+		Cookie[] cookies = req.getCookies();
+		
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("hitCnt")) {
+					oldCookie = cookie;
+				}
+			}
+		}
+		
+		if (oldCookie != null) {
+			if (!oldCookie.getValue().contains("[" + id + "]")) {
+				articleService.increaseHitCnt(id);
+				oldCookie.setValue(oldCookie.getValue() + "_[" + id + "]");
+				oldCookie.setPath("/");
+				oldCookie.setMaxAge(30 * 60);
+				resp.addCookie(oldCookie);
+			}
+		} else {
+			articleService.increaseHitCnt(id);
+			Cookie newCookie = new Cookie("hitCnt", "[" + id + "]");
+			newCookie.setPath("/");
+			newCookie.setMaxAge(30 * 60);
+			resp.addCookie(newCookie);
+		}
+		
 		Article article = articleService.getForPrintArticle(id);
 
 		model.addAttribute("article", article);
@@ -101,23 +131,6 @@ public class UsrArticleController {
 		return "usr/article/detail";
 	}
 	
-	@RequestMapping("/usr/article/doIncreaseHitCnt")
-	@ResponseBody
-	public ResultData doIncreaseHitCnt(int id) {
-		
-		ResultData increaseHitCntRd = articleService.increaseHitCnt(id);
-		
-		if (increaseHitCntRd.isFail()) {
-			return increaseHitCntRd;
-		}
-		
-		ResultData rd = ResultData.from(increaseHitCntRd.getResultCode(), increaseHitCntRd.getMsg(), "hitCnt", articleService.getArticleHitCnt(id));
-		
-		rd.setData2("id", id);
-		
-		return rd;
-	}
-
 	@RequestMapping("/usr/article/modify")
 	public String showModify(Model model, int id) {
 
