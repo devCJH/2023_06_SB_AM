@@ -30,6 +30,24 @@
 							<td><span id="articleDetail_increaseHitCnt">${article.hitCnt }</span></td>
 						</tr>
 						<tr>
+							<th>추천</th>
+							<td>
+								<c:if test="${rq.getLoginedMemberId() == 0}">
+									<span>${article.sumReactionPoint }</span>
+								</c:if>
+								<c:if test="${rq.getLoginedMemberId() != 0}">
+									<div>
+										<a class="btn btn-accent btn-outline btn-xs" href="#">좋아요👍</a>
+										<span class="ml-2">좋아요 : ${article.goodReactionPoint }개</span>
+									</div>
+									<div class="mt-2">
+										<a class="btn btn-accent btn-outline btn-xs" href="#">싫어요👎</a>
+										<span class="ml-2">싫어요 : ${article.badReactionPoint }개</span>
+									</div>
+								</c:if>
+							</td>
+						</tr>
+						<tr>
 							<th>작성자</th>
 							<td>${article.writerName }</td>
 						</tr>
