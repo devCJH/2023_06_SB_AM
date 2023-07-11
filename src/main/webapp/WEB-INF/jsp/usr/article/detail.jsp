@@ -12,18 +12,15 @@
 			relTypeCode : 'article',
 			relId : ${article.id }
 		}, function(data){
-			
-			console.log(data);
-			console.log(data.data1.sumReactionPoint);
-			
 			if (data.data1.sumReactionPoint > 0) {
 				let goodBtn = $('#goodBtn');
 				goodBtn.removeClass('btn-outline');
+				goodBtn.attr('href', '../reactionPoint/doDeleteReactionPoint?relTypeCode=article&relId=${article.id }&point=1')
 			} else if (data.data1.sumReactionPoint < 0) {
 				let badBtn = $('#badBtn');
 				badBtn.removeClass('btn-outline');
+				badBtn.prop('href', '../reactionPoint/doDeleteReactionPoint?relTypeCode=article&relId=${article.id }&point=-1')
 			}
-			
 			
 		}, 'json')
 		

@@ -23,5 +23,9 @@ public class ReactionPointService {
 	public void doInsertReactionPoint(int loginedMemberId, String relTypeCode, int relId, int point) {
 		reactionPointDao.doInsertReactionPoint(loginedMemberId, relTypeCode, relId, point);
 	}
+
+	public void doDeleteReactionPoint(int loginedMemberId, String relTypeCode, int relId) {
+		reactionPointDao.doDeleteReactionPoint(loginedMemberId, relTypeCode, relId);
+	}
 	
 }
