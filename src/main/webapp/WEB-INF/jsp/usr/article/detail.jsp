@@ -5,6 +5,33 @@
 <c:set var="pageTitle" value="Detail" />
 <%@ include file="../common/head.jsp" %>
 
+<script>
+	function getReactionPoint(){
+		
+		$.get('../reactionPoint/getReactionPoint', {
+			relTypeCode : 'article',
+			relId : ${article.id }
+		}, function(data){
+			
+			console.log(data);
+			console.log(data.data1.sumReactionPoint);
+			
+			if (data.data1.sumReactionPoint > 0) {
+				let goodBtn = $('#goodBtn');
+				goodBtn.removeClass('btn-outline');
+			} else if (data.data1.sumReactionPoint < 0) {
+				let badBtn = $('#badBtn');
+				badBtn.removeClass('btn-outline');
+			}
+			
+			
+		}, 'json')
+		
+	}
+	
+	getReactionPoint();
+</script>
+
 	<section class="mt-8">
 		<div class="container mx-auto">
 			<div class="table-box-type-1">
@@ -37,11 +64,11 @@
 								</c:if>
 								<c:if test="${rq.getLoginedMemberId() != 0}">
 									<div>
-										<a class="btn btn-accent btn-outline btn-xs" href="#">좋아요👍</a>
+										<a id="goodBtn" class="btn btn-accent btn-outline btn-xs" href="#">좋아요👍</a>
 										<span class="ml-2">좋아요 : ${article.goodReactionPoint }개</span>
 									</div>
 									<div class="mt-2">
-										<a class="btn btn-accent btn-outline btn-xs" href="#">싫어요👎</a>
+										<a id="badBtn" class="btn btn-accent btn-outline btn-xs" href="#">싫어요👎</a>
 										<span class="ml-2">싫어요 : ${article.badReactionPoint }개</span>
 									</div>
 								</c:if>
