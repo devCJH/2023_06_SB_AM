@@ -64,11 +64,11 @@
 								</c:if>
 								<c:if test="${rq.getLoginedMemberId() != 0}">
 									<div>
-										<a id="goodBtn" class="btn btn-accent btn-outline btn-xs" href="#">좋아요👍</a>
+										<a id="goodBtn" class="btn btn-accent btn-outline btn-xs" href="../reactionPoint/doInsertReactionPoint?relTypeCode=article&relId=${article.id }&point=1">좋아요👍</a>
 										<span class="ml-2">좋아요 : ${article.goodReactionPoint }개</span>
 									</div>
 									<div class="mt-2">
-										<a id="badBtn" class="btn btn-accent btn-outline btn-xs" href="#">싫어요👎</a>
+										<a id="badBtn" class="btn btn-accent btn-outline btn-xs" href="../reactionPoint/doInsertReactionPoint?relTypeCode=article&relId=${article.id }&point=-1">싫어요👎</a>
 										<span class="ml-2">싫어요 : ${article.badReactionPoint }개</span>
 									</div>
 								</c:if>
