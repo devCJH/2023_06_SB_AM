@@ -7,20 +7,16 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Article {
+public class Reply {
 	private int id;
 	private String regDate;
 	private String updateDate;
 	private int memberId;
-	private String title;
+	private String relTypeCode;
+	private int relId;
 	private String body;
-	private int hitCnt;
 	
 	private String writerName;
-	private int goodReactionPoint;
-	private int badReactionPoint;
-	private int sumReactionPoint;
-	private boolean actorCanChangeData;
 	
 	public String getForPrintBody() {
 		return this.body.replaceAll("\n", "<br />");
