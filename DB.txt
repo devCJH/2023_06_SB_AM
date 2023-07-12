@@ -12,7 +12,7 @@ CREATE TABLE article(
 
 ALTER TABLE article ADD COLUMN memberId INT UNSIGNED NOT NULL AFTER updateDate;
 ALTER TABLE article ADD COLUMN boardId INT UNSIGNED NOT NULL AFTER memberId;
-alter table article add column hitCnt int unsigned not null default 0;
+ALTER TABLE article ADD COLUMN hitCnt INT UNSIGNED NOT NULL DEFAULT 0;
 
 CREATE TABLE `member`(
     id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -43,10 +43,20 @@ CREATE TABLE reactionPoint (
     id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,
-    memberId int unsigned not null,
-    relTypeCode varchar(20) not null comment '관련 데이터 타입 코드',
-    relId int unsigned not null comment '관련 데이터 번호',
-    `point` int not null default 0
+    memberId INT UNSIGNED NOT NULL,
+    relTypeCode VARCHAR(20) NOT NULL COMMENT '관련 데이터 타입 코드',
+    relId INT UNSIGNED NOT NULL COMMENT '관련 데이터 번호',
+    `point` INT NOT NULL DEFAULT 0
+);
+
+CREATE TABLE reply (
+    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    memberId INT UNSIGNED NOT NULL,
+    relTypeCode VARCHAR(20) NOT NULL COMMENT '관련 데이터 타입 코드',
+    relId INT UNSIGNED NOT NULL COMMENT '관련 데이터 번호',
+    `body` TEXT NOT NULL
 );
 
 INSERT INTO article
@@ -161,10 +171,43 @@ relTypeCode = 'article',
 relId = 3,
 `point` = 1;
 
-SELECT * FROM article order by id desc;
+INSERT INTO reply
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+relTypeCode = 'article',
+relId = 2,
+`body` = '댓글1';
+
+INSERT INTO reply
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+relTypeCode = 'article',
+relId = 2,
+`body` = '댓글2';
+
+INSERT INTO reply
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 3,
+relTypeCode = 'article',
+relId = 2,
+`body` = '댓글3';
+
+INSERT INTO reply
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 3,
+relTypeCode = 'article',
+relId = 3,
+`body` = '댓글4';
+
+SELECT * FROM article ORDER BY id DESC;
 SELECT * FROM `member`;
 SELECT * FROM board;
-select * from reactionPoint;
+SELECT * FROM reactionPoint;
+SELECT * FROM reply;
 
 SELECT LAST_INSERT_ID();
 
