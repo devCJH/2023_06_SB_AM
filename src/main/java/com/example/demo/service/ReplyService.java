@@ -26,5 +26,16 @@ public class ReplyService {
 		return replyDao.getReplies(relTypeCode, relId);
 	}
 
+	public Reply getReply(int id) {
+		return replyDao.getReply(id);
+	}
+
+	public void deleteReply(int id) {
+		replyDao.deleteReply(id);
+	}
+
+	public void modifyReply(int id, String body) {
+		replyDao.modifyReply(id, body);
+	}
 	
 }
