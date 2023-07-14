@@ -8,18 +8,22 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.example.demo.interceptor.BeforeActionInterceptor;
 import com.example.demo.interceptor.NeedLoginInterceptor;
+import com.example.demo.interceptor.NeedLogoutInterceptor;
 
 @Configuration
 public class MyWebMvcConfigurer implements WebMvcConfigurer {
 
 	private BeforeActionInterceptor beforeActionInterceptor;
 	private NeedLoginInterceptor needLoginInterceptor;
+	private NeedLogoutInterceptor needLogoutInterceptor;
 
 	@Autowired
 	public MyWebMvcConfigurer(BeforeActionInterceptor beforeActionInterceptor,
-			NeedLoginInterceptor needLoginInterceptor) {
+			NeedLoginInterceptor needLoginInterceptor,
+			NeedLogoutInterceptor needLogoutInterceptor) {
 		this.beforeActionInterceptor = beforeActionInterceptor;
 		this.needLoginInterceptor = needLoginInterceptor;
+		this.needLogoutInterceptor = needLogoutInterceptor;
 	}
 
 	@Override
@@ -38,6 +42,12 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		ir.addPathPatterns("/usr/article/doModify");
 		ir.addPathPatterns("/usr/article/doDelete");
 		ir.addPathPatterns("/usr/member/doLogout");
+		ir.addPathPatterns("/usr/member/myPage");
+		ir.addPathPatterns("/usr/member/passwordChk");
+		ir.addPathPatterns("/usr/member/doPasswordChk");
+		ir.addPathPatterns("/usr/member/doModify");
+		ir.addPathPatterns("/usr/member/passwordModify");
+		ir.addPathPatterns("/usr/member/doPasswordModify");
 		ir.addPathPatterns("/usr/reactionPoint/getReactionPoint");
 		ir.addPathPatterns("/usr/reactionPoint/doInsertReactionPoint");
 		ir.addPathPatterns("/usr/reactionPoint/doDeleteReactionPoint");
@@ -45,6 +55,11 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		ir.addPathPatterns("/usr/reply/doModify");
 		ir.addPathPatterns("/usr/reply/doDelete");
 		ir.addPathPatterns("/usr/reply/getReplyContent");
+		
+		ir = registry.addInterceptor(needLogoutInterceptor);
+		ir.addPathPatterns("/usr/member/doJoin");
+		ir.addPathPatterns("/usr/member/login");
+		ir.addPathPatterns("/usr/member/doLogin");
 	}
 
 }
