@@ -13,6 +13,9 @@
 			<div>
 				안녕하세요
 			</div>
+			<div>
+				<img src="/resource/images/고양이.jpg"/>
+			</div>
 		</div>
 	</section>
 
