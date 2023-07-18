@@ -18,6 +18,7 @@
 			</div>
 			<div>
 				<span class="modal-exam">모달예시</span>
+				<span class="modal-exam">모달예시2</span>
 			</div>
 			<div>
 				<span class="popUp-exam">팝업예시</span>
