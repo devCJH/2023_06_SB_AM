@@ -7,7 +7,7 @@
     font-style: normal;
 }
 
-html > body {
+html > body, html > body .ProseMirror, html > body .toastui-editor-contents {
 	font-family: 'GmarketSansMedium', sans-serif;
 	text-underline-position:under;
 }
@@ -19,6 +19,15 @@ html > body {
 .table-box-type-1 > table th, .table-box-type-1 > table td {
 	border:1px solid black;
 	padding: 10px;
+	text-align: center;
+}
+
+html > body .ProseMirror, html > body .toastui-editor-contents {
+	text-align: left;
+	font-size: 1.25rem;
+}
+
+html > body .toast-ui-viewer .toastui-editor-contents {
 	text-align: center;
 }
 
