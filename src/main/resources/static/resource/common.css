@@ -12,6 +12,22 @@ html > body, html > body .ProseMirror, html > body .toastui-editor-contents {
 	text-underline-position:under;
 }
 
+html[data-theme="dark"] :is(.table-box-type-1 > table th, .table-box-type-1 > table td) {
+	border-color: white;
+}
+
+.theme-toggle .fa-solid {
+	display: none;
+}
+
+html[data-theme="dark"] .theme-toggle .fa-solid {
+	display: inline;
+}
+
+html[data-theme="dark"] .theme-toggle .fa-regular {
+	display: none;
+}
+
 .table-box-type-1 > table {
 	width: 100%;
 }
