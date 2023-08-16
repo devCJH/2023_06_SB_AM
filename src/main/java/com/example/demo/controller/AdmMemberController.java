@@ -64,14 +64,19 @@ public class AdmMemberController {
 			return Util.jsHistoryBack("선택한 회원이 없습니다");
 		}
 
-		if (ids.equals("3")) {
-			return Util.jsHistoryBack("관리자 계정은 삭제할 수 없습니다");
-		}
-
 		List<Integer> memberIds = new ArrayList<>();
 
 		for (String idStr : ids.split(",")) {
-			memberIds.add(Integer.parseInt(idStr));
+			
+			int id = Integer.parseInt(idStr);
+			
+			memberIds.add(id);
+			
+			Member member = memberService.getMemberById(id);
+			
+			if (member.getAuthLevel() == 3) {
+				return Util.jsHistoryBack("관리자 계정은 삭제할 수 없습니다");
+			}
 		}
 
 		memberService.deleteMembers(memberIds);
